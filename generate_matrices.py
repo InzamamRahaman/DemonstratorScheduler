@@ -13,4 +13,3 @@ for i in range(parents):
             else:
                 f.write("%d\t"%(num) )
             #print(random.randint(0,1))
-    f.write("\n\n")
