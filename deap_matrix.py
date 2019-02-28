@@ -23,19 +23,14 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 
 
-def evalOneMax(individual):
-    print("Here")
-    li = []
-    for i in individual:
-        sum = 0
-        for j in i:
-            if(j == 1):
-                sum+=1
-        li.append(sum)
-
-        #print(i,"\n")
-    #print(individual,"\n")
-    return li
+def evalOneMax(individual,items):
+    costs = []
+    print("Inside")
+    print(len(individual))
+    for i in range(len(individual)):
+        costs.append(fitness.fitness(individual[i],items[0],items[1],items[2],\
+        items[3],items[4],items[5],0,0,0,0))
+    return(costs)
 
 
 #Genetic Operators
@@ -58,20 +53,15 @@ def main():
     time_per_lab = np.random.randint(5,size=(L,1))
     time_limits = np.random.randint(10,size=(D,1))
     demonstrator_requirements = np.random.randint(4,size=(L,1))
-    #print(pop[0])
-    #print(len(pop))
-    value = fitness.fitness(pop[0],costs,qualifications,seniority,time_per_lab\
-    ,time_limits,demonstrator_requirements,0,0,0,0)
-    print(value)
-    '''
-    print(pop)
-    print(len(pop))
-    print(len(pop[0]))
-    print(type(pop))
-    print(np.shape(pop))
-    print(pop[0][0])
-    '''
-    fitnesses = list(map(toolbox.evaluate, pop))
+    items = [costs,qualifications,seniority,time_per_lab,time_limits\
+    ,demonstrator_requirements]
+    
+    print("after")
+    #fitnesses = list(map(toolbox.evaluate,[pop,items]))
+    fitnesses = toolbox.evaluate(pop,items)
+    print(fitnesses)
+    print(max(fitnesses))
+    #map(toolbox.evaluate,pop)
 
     #Evaluation the entire population
     '''
