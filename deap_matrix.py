@@ -18,8 +18,8 @@ def init2d(icls, low, high, shape):
     return icls(indGenerator)
 
 
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+creator.create("Individual", np.ndarray, fitness=creator.FitnessMin)
 
 toolbox = base.Toolbox()
 
