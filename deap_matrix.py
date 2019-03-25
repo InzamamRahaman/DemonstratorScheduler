@@ -11,6 +11,7 @@ import random
 import fitness
 
 #https://groups.google.com/forum/#!topic/deap-users/FqOEGbLJsUQ
+#Elitism https://groups.google.com/forum/#!topic/deap-users/iannnLI2ncE
 
 
 def init2d(icls, low, high, shape):
@@ -73,7 +74,7 @@ def main():
 
     costs = np.random.randint(-20,20,size=(L,L))
     qualifications = np.random.randint(2,size=(D,L) )
-    pop = toolbox.population(n=10)
+    pop = toolbox.population(n=20)
     #print(type(pop[0]))
     seniority = np.random.randint(5,size=(D,L))
     time_per_lab = np.random.randint(5,size=(L,1))
@@ -104,7 +105,12 @@ def main():
 
     g = 0
 
-    while(max(fits) < 100 and g < 50):
+    while(max(fits) < 100 and g < 5):
+        elite = tools.selBest(pop, int(0.1*len(pop)))
+        print("Elites ",len(elite))
+        print([x.fitness.values for x in elite])
+        print("Population",len(pop))
+        print([x.fitness.values for x in pop])
         g+=1
         print("-- Generation %i -- " %g)
 
