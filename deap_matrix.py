@@ -9,6 +9,7 @@ from deap import creator
 from deap import tools
 import random
 import fitness
+from matplotlib import pyplot as plt
 
 #https://groups.google.com/forum/#!topic/deap-users/FqOEGbLJsUQ
 #Elitism https://groups.google.com/forum/#!topic/deap-users/iannnLI2ncE
@@ -104,6 +105,7 @@ def main():
     #print(pop[0].fitness)
 
     g = 0
+    minimum = []
 
     while(max(fits) < 100 and g < 5):
         elite = tools.selBest(pop, int(0.1*len(pop)))
@@ -169,7 +171,10 @@ def main():
         std = abs(sum2/length - mean**2)**0.5
         print(fits)
 
-        print("  Min %s" % min(fits))
+        min1 = min(fits)
+        minimum+=[min1]
+        #print(minimum)
+        print("  Min %s" % min1)
         print("  Max %s" % max(fits))
         print("  Avg %s" % mean)
         print("  Std %s" % std)
@@ -186,6 +191,11 @@ def main():
         #print(len(fitnesses))
         #print(len(fitnesses[0]))
         '''
+    
+    print("\n\nTotal minimum values\n\n",minimum)
+    plt.plot(minimum,marker='x')
+    plt.savefig('ga.png')
+    plt.show()
 
 if __name__ == "__main__":
     main()
