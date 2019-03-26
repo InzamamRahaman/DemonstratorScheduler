@@ -109,10 +109,11 @@ def main():
         elite = tools.selBest(pop, int(0.1*len(pop)))
         print("Elites ",len(elite))
         print([x.fitness.values for x in elite])
+        pop = pop[2:]
         print("Population",len(pop))
         print([x.fitness.values for x in pop])
         g+=1
-        print("-- Generation %i -- " %g)
+        print("\n\n-- Generation %i -- \n\n" %g)
 
         offspring = toolbox.select(pop,len(pop))
         offspring = list(map(toolbox.clone,offspring))
@@ -156,7 +157,10 @@ def main():
             ind.fitness.values = fit
 
         pop[:] = offspring
+        elite += pop
+        pop = elite
         fits = [ind.fitness.values[0] for ind in pop]
+        print("Length with elites back: ",len(pop))
         
 
         length = len(pop)
